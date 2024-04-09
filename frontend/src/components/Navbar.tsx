@@ -12,16 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useNavigate } from 'react-router-dom';
 
-const pages = [{ pageName: 'Ai Detect', link: '/aidetect' },
-{ pageName: 'Chatbot', link: '/chatbot' }];
+const pages = [{ name: 'AI Detect', link: '/' }, { name: 'Chatbot', link: '/chatbot' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function ASDNavbar() {
+function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -30,11 +27,14 @@ function ASDNavbar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (link:string) => {
-    navigate('test')
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
+  
+
   const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
   return (
@@ -46,7 +46,7 @@ function ASDNavbar() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -57,8 +57,9 @@ function ASDNavbar() {
               textDecoration: 'none',
             }}
           >
-            ASD AI Doctor
+            ASD Doctor
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -89,8 +90,8 @@ function ASDNavbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.pageName}>
-                  <Typography textAlign="center">{page.pageName}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu} href={page.link}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -100,7 +101,7 @@ function ASDNavbar() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href='/'
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -112,16 +113,16 @@ function ASDNavbar() {
               textDecoration: 'none',
             }}
           >
-            ASD AI Doctor
+            AI Doctor
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page.pageName}
-                onClick={handleCloseNavMenu('test')}
+                key={page.name}
+                href={page.link}
+                onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page.pageName}
+              >{page.name}
               </Button>
             ))}
           </Box>
@@ -160,4 +161,4 @@ function ASDNavbar() {
     </AppBar>
   );
 }
-export default ASDNavbar;
+export default ResponsiveAppBar;
