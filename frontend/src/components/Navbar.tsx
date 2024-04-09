@@ -12,13 +12,16 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useNavigate } from 'react-router-dom';
 
-const pages = ['AI Detect', 'ChatBot'];
+const pages = [{ pageName: 'Ai Detect', link: '/aidetect' },
+{ pageName: 'Chatbot', link: '/chatbot' }];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Navbar() {
+function ASDNavbar() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -27,12 +30,11 @@ function Navbar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseNavMenu = (link:string) => {
+    navigate('test')
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
   };
 
   return (
@@ -87,8 +89,8 @@ function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.pageName}>
+                  <Typography textAlign="center">{page.pageName}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -115,11 +117,11 @@ function Navbar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.pageName}
+                onClick={handleCloseNavMenu('test')}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.pageName}
               </Button>
             ))}
           </Box>
@@ -158,4 +160,4 @@ function Navbar() {
     </AppBar>
   );
 }
-export default Navbar;
+export default ASDNavbar;
