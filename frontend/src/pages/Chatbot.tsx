@@ -1,20 +1,35 @@
-import { Box, Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, Typography } from "@mui/material"
+import { Container, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, TextField, Typography } from "@mui/material"
+import Box from '@mui/material/Box';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import KeyboardVoiceOutlinedIcon from '@mui/icons-material/KeyboardVoiceOutlined';
+import { getGeminiChat } from "../util/http";
+import { FormEvent, ReactElement } from "react";
+import { useSubmit } from "react-router-dom";
 
 const ChatbotPage: React.FC = () => {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+    // const { data, isError, error } = useQuery({
+    //     queryKey: ['chatBotData'],
+    //     queryFn: ({ signal }) => getGeminiChat()
+    // })
+    const submit = useSubmit()
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const formData = new FormData(event.currentTarget);
+        submit(formData)
+        const data = Object.fromEntries(formData);
+        console.log(data)
+
+        // console.log(test)
         console.log("Submitting....")
     }
     return (
         <Container maxWidth="xl" sx={{ mt: 2 }}>
             <Paper elevation={6} sx={{ height: '75vh', minHeight: '75%' }}>
                 <Box component='div' sx={{ my: 2, p: 3, display: 'flex', whiteSpace: 'normal' }}>
-                    <SmartToyOutlinedIcon />
-                    <Typography >
-                        :123wewewew2132asadsadfdsfdssadfddsfsdffdsfdsda212121212121212</Typography>
+                    <SmartToyOutlinedIcon />:
+                    <Typography>Hello</Typography>
                 </Box>
                 <Box component='div' sx={{ my: 2, p: 3, whiteSpace: 'normal' }}>
                     <Typography textAlign='right'>Test</Typography>
@@ -25,7 +40,8 @@ const ChatbotPage: React.FC = () => {
                     <FormControl fullWidth sx={{ mt: 2 }} variant="outlined">
                         <InputLabel htmlFor="inputText" >Input Text or Speak</InputLabel>
                         <OutlinedInput
-                            id="inputText"
+                            id="chatText"
+                            name="chatText"
                             endAdornment={
                                 <InputAdornment position="end" sx={{ display: "flex", gap: 1 }}>
                                     <IconButton edge="end">
@@ -50,3 +66,11 @@ const ChatbotPage: React.FC = () => {
 }
 
 export default ChatbotPage
+
+export async function actions(request:any) {
+    console.log("action...")
+    const formData = await request.formData();
+    const updatedChatData = Object.fromEntries(formData);
+    const newText = await getGeminiChat(updatedChatData);
+    console.log(newText);
+}
