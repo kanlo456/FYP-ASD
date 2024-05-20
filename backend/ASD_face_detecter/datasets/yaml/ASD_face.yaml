@@ -1,0 +1,10 @@
+path: ../datasets/ASD_face_data
+train: images/train  
+val: images/val  
+# test: images/test 
+
+# Classes (80 COCO classes)
+names:
+  0: ASD_FACE
+  1: Non_ASD_FACE
+  
