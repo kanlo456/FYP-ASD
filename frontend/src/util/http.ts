@@ -13,3 +13,13 @@ export async function getGeminiChat(chat: any) {
 
     return text
 }
+
+export async function sendAsdImage(file:FormData){
+    const response = await fetch(`http://127.0.0.1:8000/autism_image`, {
+        method: 'POST',
+        body: file,
+        // headers: { 'Content-Type': , }
+    })
+    const result = await response.json()
+    return result
+}

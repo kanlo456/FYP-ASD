@@ -4,15 +4,25 @@ import { useDropzone } from "react-dropzone";
 import { FileRejection } from "react-dropzone";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-function handleImageSubmit() {}
-
-function handleTest() {}
+import { Form, useNavigate, useSubmit } from "react-router-dom";
+import { sendAsdImage } from "../util/http";
+import axios from "axios";
 
 const FaceDetectionPage: React.FC = () => {
+  // const submit = useSubmit();
+  function handleImageSubmit(event: React.FormEvent) {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("asdImageFile", image[0]);
+    axios.post("http://127.0.0.1:8000/autism_image", formData, {
+      headers: { "Content-Type": "multipart.form-data" },
+    });
+    // sendAsdImage()
+  }
 
+  function handleTest() {}
   const [files, setFiles] = useState<any>([]);
+  const [image, setImage] = useState<any>();
   const [submitFile, setSubmitFile] = useState(false);
   const { acceptedFiles, fileRejections, getRootProps, getInputProps } =
     useDropzone({
@@ -21,6 +31,7 @@ const FaceDetectionPage: React.FC = () => {
         "image/png": [],
       },
       onDrop: (acceptedFiles) => {
+        setImage(acceptedFiles);
         setFiles(
           acceptedFiles.map((file) =>
             Object.assign(file, {
@@ -82,7 +93,7 @@ const FaceDetectionPage: React.FC = () => {
           }}
           {...getRootProps({ className: "dropzone" })}
         >
-          <input {...getInputProps()} />
+          <input {...getInputProps()} name="ASD_image" type="file" />
           <Stack
             sx={{
               display: "flex",
@@ -98,14 +109,6 @@ const FaceDetectionPage: React.FC = () => {
               </>
             )}
           </Stack>
-          {/* <p>Drag 'n' drop some files here, or click to select files</p>
-            <em>(Only *.jpeg and *.png images will be accepted)</em> */}
-          {/* <aside>
-              <h4>Accepted files</h4>
-              <ul>{acceptedFileItems}</ul>
-              <h4>Rejected files</h4>
-              <ul>{fileRejectionItems}</ul>
-            </aside> */}
         </Paper>
       </Grid2>
       <Grid2 xs={12} sx={{ display: "flex", justifyContent: "center" }}>
@@ -114,12 +117,13 @@ const FaceDetectionPage: React.FC = () => {
       <Grid2 xs={4} sx={{ display: "flex", justifyContent: "center" }}>
         <Button>Cancel</Button>
       </Grid2>
-      <Grid2></Grid2>
       <Grid2 xs={4} sx={{ display: "flex", justifyContent: "center" }}>
-        <Button>Submit</Button>
+        <Button type="submit">Submit</Button>
       </Grid2>
     </Grid2>
   );
 };
 
 export default FaceDetectionPage;
+
+export async function action() {}
