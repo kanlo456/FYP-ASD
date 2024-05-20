@@ -31,7 +31,7 @@ app.add_middleware(
 class GeminiChatText(BaseModel):
     text:str
 
-genai.configure(api_key='AIzaSyBTByEfM8_C6mK2XuNm9hR0VCRUIWLXwy8')+++++
+genai.configure(api_key='AIzaSyBTByEfM8_C6mK2XuNm9hR0VCRUIWLXwy8')
 model = genai.GenerativeModel('gemini-pro')
 
 response = model.generate_content("Write a story about a magic backpack.")
