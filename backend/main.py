@@ -94,5 +94,8 @@ async def read_video(file:UploadFile = File(...)):
     result = pipe(f.name)
     return result
     
+    
 if __name__ == '__main__':
     uvicorn.run(app, port=3000)
+
+    
