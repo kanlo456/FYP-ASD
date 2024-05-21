@@ -4,23 +4,28 @@ import { useDropzone } from "react-dropzone";
 import { FileRejection } from "react-dropzone";
 import PublishIcon from "@mui/icons-material/Publish";
 import { useState } from "react";
-import { Form, useNavigate, useSubmit } from "react-router-dom";
-import { sendAsdImage } from "../util/http";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FaceDetectionPage: React.FC = () => {
   // const submit = useSubmit();
-  function handleImageSubmit(event: React.FormEvent) {
+  const navigate = useNavigate();
+  async function handleImageSubmit(event: React.FormEvent) {
     event.preventDefault();
     const formData = new FormData();
     formData.append("asdImageFile", image[0]);
-    axios.post("http://127.0.0.1:8000/autism_image", formData, {
-      headers: { "Content-Type": "multipart.form-data" },
-    });
+    const result = await axios.post(
+      "http://127.0.0.1:8000/autism_image",
+      formData,
+      {
+        headers: { "Content-Type": "multipart.form-data" },
+      }
+    );
     // sendAsdImage()
+    console.log(result.data);
+    navigate("../result_image", { state: { result: result.data } });
   }
 
-  function handleTest() {}
   const [files, setFiles] = useState<any>([]);
   const [image, setImage] = useState<any>();
   const [submitFile, setSubmitFile] = useState(false);
@@ -64,7 +69,7 @@ const FaceDetectionPage: React.FC = () => {
   );
   const thumbs = files.map((file: any) => (
     <Box
-      sx={{ maxWidth: "50vw" }}
+      sx={{ maxWidth: "50vw", maxHeight: "40vh" }}
       component="img"
       src={file.preview}
       // Revoke data uri after image is loaded
@@ -86,6 +91,8 @@ const FaceDetectionPage: React.FC = () => {
         <Paper
           sx={{
             minHeight: "40vh",
+            maxHeight: "40vh",
+            maxWidth: "50vw",
             minWidth: "50vw",
             display: "flex",
             justifyContent: "center",

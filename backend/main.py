@@ -12,11 +12,15 @@ from fastapi.encoders import jsonable_encoder
 import json
 import uvicorn
 
+from fastapi.staticfiles import StaticFiles
+
 # import google.generativeai as genai
 
 from ultralytics import YOLO
 
 app = FastAPI()
+app.mount("/save_ASD_face_image", StaticFiles(directory="save_ASD_face_image/"),name="save_ASD_face_image/")
+
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -74,14 +78,14 @@ async def read_image(asdImageFile:UploadFile = File(...)):
             asd_result = json.loads(r.tojson())
             # boxes = r.boxes
             r.save(filename="save_ASD_face_image/result.jpg")
-            r.show()
+            # r.show()
         except:
             print("NO ASD detected")
             asd_result = [{"name":"Face no detected", "confidence":0}]
     
     print(asd_result[0]['name'])
     print(asd_result[0]['confidence'])
-    return {"filepath":resultPath, "resultType":asd_result[0]['name'], "resultConfidence":asd_result[0]['confidence']}
+    return {"filepath":"save_ASD_face_image/result.jpg", "resultType":asd_result[0]['name'], "resultConfidence":asd_result[0]['confidence']}
 
 
 @app.post("/autism_video")
@@ -93,7 +97,6 @@ async def read_video(file:UploadFile = File(...)):
         f.write(contents)
     result = pipe(f.name)
     return result
-    
     
 if __name__ == '__main__':
     uvicorn.run(app, port=3000)

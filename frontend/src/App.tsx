@@ -9,6 +9,7 @@ import { queryClient } from "./util/http.js";
 
 import HomePage from "./pages/Home.tsx";
 import FaceDetectionPage from "./pages/FaceDetection.tsx";
+import ResutlASDImagePage from "./pages/Result.tsx";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "face_detection", element: <FaceDetectionPage /> },
+      {
+        path: "face_detection",
+        element: <FaceDetectionPage />,
+      },
+      { path: "result_image", element: <ResutlASDImagePage /> },
       { path: "chatbot", element: <ChatbotPage />, action: chatBotAction },
     ],
   },
