@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
       content: "This column detect the Behaviour",
       buttonText: "Start",
       imagePath: "src/assets/images/behaviour.jpg",
-      path: "/behaviour_detection",
+      path: "/video_detection",
     },
   ];
 

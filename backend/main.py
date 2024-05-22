@@ -89,11 +89,11 @@ async def read_image(asdImageFile:UploadFile = File(...)):
 
 
 @app.post("/autism_video")
-async def read_video(file:UploadFile = File(...)):
-    file.filename = f"{uuid.uuid4()}.mp4"
+async def read_video(asdVideoFile:UploadFile = File(...)):
+    asdVideoFile.filename = f"{uuid.uuid4()}.mp4"
     pipe = pipeline(model="kanlo/ASD_Behavour-trainining2")
-    contents = await file.read()
-    with open(f"save_ASD_face_video/{file.filename}", "wb") as f:
+    contents = await asdVideoFile.read()
+    with open(f"save_ASD_face_video/{asdVideoFile.filename}", "wb") as f:
         f.write(contents)
     result = pipe(f.name)
     return result
