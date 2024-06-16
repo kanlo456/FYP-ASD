@@ -1,6 +1,6 @@
-import { Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ResutlASDImagePage: React.FC = () => {
   const location = useLocation();
@@ -9,6 +9,7 @@ const ResutlASDImagePage: React.FC = () => {
 
   const type = String(Object.values(result)[1]);
   const confident = String(Object.values(result)[2]);
+  console.log(Object.values(result));
   //   console.log(Object.values(result[0]))
   return (
     <Box sx={{ display: "felex", justifyContent: "center", p: 5 }}>
@@ -24,6 +25,7 @@ const ResutlASDImagePage: React.FC = () => {
           <Typography variant="h4">Confident: {confident}</Typography>
         </Box>
         <Box component="img" sx={{}} src={`http://127.0.0.1:8000/${path}`} />
+        <Button href="/">Back to Home</Button>
       </Stack>
     </Box>
   );

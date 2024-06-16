@@ -6,14 +6,18 @@ import PublishIcon from "@mui/icons-material/Publish";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { getAuthToken, tokenLoader } from "../util/auth";
 
 const FaceDetectionPage: React.FC = () => {
   // const submit = useSubmit();
   const navigate = useNavigate();
+
   async function handleImageSubmit(event: React.FormEvent) {
     event.preventDefault();
     const formData = new FormData();
+    const token = tokenLoader() || "";
     formData.append("asdImageFile", image[0]);
+    formData.append("token", token);
     const result = await axios.post(
       "http://127.0.0.1:8000/autism_image",
       formData,

@@ -17,6 +17,13 @@ const HomePage: React.FC = () => {
       imagePath: "src/assets/images/behaviour.jpg",
       path: "/video_detection",
     },
+    {
+      title: "Eye contact Behaviour",
+      content: "This column detect the Behaviour",
+      buttonText: "Start",
+      imagePath: "src/assets/images/eye_contact.jpg",
+      path: "/video_eye_detection",
+    },
   ];
 
   return (

@@ -1,3 +1,14 @@
-#Lanuch backend
+# Lanuch backend
 
-`uvicorn main:app --reload` to start tge backend
+```
+cd backend
+fastapi dev
+```
+
+# Lanuch fontend
+
+```
+cd fontend
+yarn start
+```
+

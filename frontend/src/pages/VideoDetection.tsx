@@ -6,6 +6,7 @@ import PublishIcon from "@mui/icons-material/Publish";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { tokenLoader } from "../util/auth";
 
 const VideoDetectionPage: React.FC = () => {
   // const submit = useSubmit();
@@ -13,9 +14,13 @@ const VideoDetectionPage: React.FC = () => {
   async function handleImageSubmit(event: React.FormEvent) {
     event.preventDefault();
     const formData = new FormData();
+    const token = tokenLoader() || "";
+
     formData.append("asdVideoFile", image[0]);
+    formData.append("token", token);
     const result = await axios.post(
       "http://127.0.0.1:8000/autism_video",
+
       formData,
       {
         headers: { "Content-Type": "multipart.form-data" },
@@ -50,23 +55,11 @@ const VideoDetectionPage: React.FC = () => {
     });
 
   const acceptedFileItems = acceptedFiles.map((file: File) => (
-    <li key={file.name}>
+    <>
       {file.name} - {file.size} bytes
-    </li>
+    </>
   ));
 
-  const fileRejectionItems = fileRejections.map(
-    ({ file, errors }: FileRejection) => (
-      <li key={file.name}>
-        {file.name} - {file.size} bytes
-        <ul>
-          {errors.map((e) => (
-            <li key={e.code}>{e.message}</li>
-          ))}
-        </ul>
-      </li>
-    )
-  );
   const thumbs = files.map((file: any) => (
     <Box
       sx={{ maxWidth: "50vw", maxHeight: "40vh" }}
