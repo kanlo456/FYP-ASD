@@ -1,3 +1,5 @@
+# Please install the Anaconda environment on your computer to run the backend!
+
 # Lanuch backend
 
 ```
@@ -11,6 +13,5 @@ fastapi dev
 cd fontend
 yarn start
 ```
-# Please install the Anaconda environment on your computer to run the backend!
 
 
