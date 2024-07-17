@@ -11,6 +11,7 @@ fastapi dev
 
 ```
 cd fontend
+npm install
 yarn start
 ```
 
