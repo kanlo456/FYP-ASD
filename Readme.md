@@ -53,7 +53,7 @@ Model) technology to generate prompts and engage in conversations tailored to
 the needs of ASD children.
 
 
-## 🌟Upload Face image method & result
+## 🌟Upload Face image
 ![image](https://github.com/user-attachments/assets/81c65015-024b-4584-95fb-9ba5fb2af99c)
 
 Users can upload image files in JPG or PNG format to the website. The website will
@@ -65,7 +65,7 @@ facial features.
 ## 🌟Upload eye-contact or action behaviours video
 ![image](https://github.com/user-attachments/assets/2d400c15-26d9-4bd2-b5d5-5c6ccddd2cf3)
 ![image](https://github.com/user-attachments/assets/3679f3b6-b533-4d47-a4ff-099d2a19ed52)
-method & result
+
 Users can upload one-minute videos in MP4 format to the website. The
 recommended video resolution is 1920 x 1080, as this format balances quality and
 file size. Choosing a smaller resolution helps prevent potential issues with the
